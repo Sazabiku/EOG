@@ -89,8 +89,6 @@ async def greet_handler(event):
         await event.reply(keys_search[action_count])
 
 
-
-
 #Запускаем в работу
 with client:
     client.loop.run_until_complete(starter())
