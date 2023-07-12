@@ -1,6 +1,7 @@
 from telethon import TelegramClient, events
 from telethon.tl.functions.channels import JoinChannelRequest
 import asyncio
+from numba import njit
 import logging
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
@@ -19,8 +20,8 @@ countries = ['Россия', 'Украина', 'Беларусь', 'Казахс
 
 
 #Пример данных для поиска, потом подгружать с БД/запроса (?)
-keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович', 'Сидоров Вячеслав Олегович', 
-               'Куприн Вячеслав Александрович']
+keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович'] # 'Сидоров Вячеслав Олегович', 
+               #'Куприн Вячеслав Александрович']
 #['Антонов Вячеслав Олегович'] 
 
 #Ведем подсчет запросов к боту
@@ -47,6 +48,7 @@ async def doc_handler(event):
     
 
 #Работаем с query-ответами бота, выбираем страну для посика, проверяем, удачный ли ответ и продолжаем опрашивать бота
+@njit
 @client.on(events.NewMessage(chats=target_chat, pattern=r'Выберите доступные действия:'))
 async def query_handler(event):
     global action_count
@@ -74,10 +76,18 @@ async def query_handler(event):
 @client.on(events.NewMessage(chats=target_chat))
 async def group_handler(event):
     if 'Обязательным условием' in event.text:
-        link = await event.button(0).url
+        link = event.buttons[0][0].url
         await client(JoinChannelRequest(link))
         await asyncio.sleep(0.001)
         await event.click(1)
+
+
+#Получаем ответ на подпику на группу
+@client.on(events.NewMessage(chats=target_chat))
+async def greet_handler(event):
+    if 'Вы можете прислать боту запросы в следующем формате:' in event.text:
+        await event.reply(keys_search[action_count])
+
 
 
 
