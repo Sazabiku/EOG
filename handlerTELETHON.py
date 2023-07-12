@@ -1,4 +1,5 @@
 from telethon import TelegramClient, events
+from telethon.tl.functions.channels import JoinChannelRequest
 import asyncio
 import logging
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
@@ -67,6 +68,15 @@ async def query_handler(event):
         if 'заблокирована' in message.text:
             #Это означает, что исчерпаны запросы для конкретного аккаунта telegram на сегодня
             return
+
+
+@client.on(events.NewMessage(chats=target_chat))
+async def group_handler(event):
+    if 'Обязательным условием' in event.messsage.text:
+        link = await event.message.button.url
+        await client(JoinChannelRequest(link))
+        await event.message.click(1)
+
 
 
 #Запускаем в работу
