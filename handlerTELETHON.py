@@ -90,6 +90,7 @@ async def greet_handler(event):
 
 
 #Запускаем в работу
-with client:
-    client.loop.run_until_complete(starter())
-    client.loop.run_forever()
+if __name__ == "__main__":
+    with client:
+        client.loop.run_until_complete(starter())
+        client.loop.run_forever()
