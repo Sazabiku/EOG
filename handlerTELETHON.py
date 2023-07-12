@@ -21,14 +21,14 @@ countries = ['Россия', 'Украина', 'Беларусь', 'Казахс
 #Пример данных для поиска, потом подгружать с БД/запроса (?)
 keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович', 'Сидоров Вячеслав Олегович', 
                'Куприн Вячеслав Александрович']
-
+#['Антонов Вячеслав Олегович'] 
 
 #Ведем подсчет запросов к боту
 action_count = 0
 
 
 #Начинаем общение с ботом
-async def start():
+async def starter():
     await client.send_message(target_chat, '/start')
 
 
@@ -73,15 +73,15 @@ async def query_handler(event):
 #Вступаем в чат при соответствующем требовании
 @client.on(events.NewMessage(chats=target_chat))
 async def group_handler(event):
-    if 'Обязательным условием' in event.messsage.text:
-        link = await event.message.button(0).url
+    if 'Обязательным условием' in event.text:
+        link = await event.button(0).url
         await client(JoinChannelRequest(link))
         await asyncio.sleep(0.001)
-        await event.message.click(1)
+        await event.click(1)
 
 
 
 #Запускаем в работу
 with client:
-    client.loop.run_until_complete(start())
+    client.loop.run_until_complete(starter())
     client.loop.run_forever()
