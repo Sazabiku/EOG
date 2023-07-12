@@ -70,7 +70,7 @@ async def query_handler(event):
             return
 
 
-#Проходим в группу
+#Вступаем в чат при соответствующем требовании
 @client.on(events.NewMessage(chats=target_chat))
 async def group_handler(event):
     if 'Обязательным условием' in event.messsage.text:
