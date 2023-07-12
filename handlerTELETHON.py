@@ -70,11 +70,13 @@ async def query_handler(event):
             return
 
 
+#Проходим в группу
 @client.on(events.NewMessage(chats=target_chat))
 async def group_handler(event):
     if 'Обязательным условием' in event.messsage.text:
         link = await event.message.button(0).url
         await client(JoinChannelRequest(link))
+        await asyncio.sleep(0.001)
         await event.message.click(1)
 
 
