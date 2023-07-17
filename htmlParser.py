@@ -9,12 +9,6 @@ with open('downloads/Куприн_Вячеслав_Александрович_2.
     soup = BeautifulSoup(contents, 'lxml')
 
     root = soup.html
-
-    root_childs = [e.name for e in root.children if e.name is not None]
-    print(root_childs)
-    
-    root_childs = [e.name for e in root.descendants if e.name is not None]
-    print(root_childs)
     
     #for tag in soup.find_all('div'):
      #   print(f'{tag.text}')
