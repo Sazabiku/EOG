@@ -57,9 +57,11 @@ async def doc_handler(event):
     global action_count
     if event.media:
         await event.download_media()#Можно задать конкретный путь при запуске на VM
-    if 'ФИО' in event.text or 'Логин' in event.text or 'ИНН' in event.text or 'Адрес' in event.text or 'VIN' in event.text:
+    if 'ФИО' in event.text or 'Логин' in event.text or 'ИНН' in event.text or 'Адрес' in event.text or 'VIN' in event.text or 'Номер' in event.text:
         with open ('messages.txt', 'a', encoding='utf-8') as file:
             file.write(event.text)
+        action_count += 1
+        await client.send_message(target_chat, keys_search[action_count])
 
 #Работаем с query-ответами бота, выбираем страну для посика, проверяем, удачный ли ответ и продолжаем опрашивать бота
 @njit
@@ -96,8 +98,7 @@ async def decline_handler(event):
                 #Позже отправлять в БД (?) соответствующее неудачному запросу сообщение
                 action_count += 1
                 await client.send_message(target_chat, keys_search[action_count])
-            elif keys_search[action_count] in message.text:
-                action_count += 1
+            elif 'Вы слишком часто выполняете это действие' in message.text:
                 await client.send_message(target_chat, keys_search[action_count])
         except IndexError:
             #Это означает, кончились ФИО для опроса бота
@@ -127,6 +128,9 @@ async def greet_handler(event):
 @client.on(events.NewMessage(chats=target_chat, pattern=r'Выберите направление поиска'))
 async def socnet_handler(event):
     await event.message.click(socnetworks.index('Вконтакте'))
+    
+    
+
 
 #Запускаем в работу
 if __name__ == "__main__":
