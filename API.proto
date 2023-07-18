@@ -14,7 +14,7 @@ service askEOG {
 // Данные конкретного человека для запроса
 message Individ {
     string input_info = 7;
-    string search_choice = 8;
+    optional string search_choice = 8;
 }
 
 
