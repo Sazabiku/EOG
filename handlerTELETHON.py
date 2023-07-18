@@ -2,7 +2,7 @@ from telethon import TelegramClient, events
 from telethon.tl.functions.channels import JoinChannelRequest
 from numba import njit
 import asyncio
-import gzip
+#import gzip
 import logging
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
@@ -129,8 +129,6 @@ async def greet_handler(event):
 async def socnet_handler(event):
     await event.message.click(socnetworks.index('Вконтакте'))
     
-    
-
 
 #Запускаем в работу
 if __name__ == "__main__":
