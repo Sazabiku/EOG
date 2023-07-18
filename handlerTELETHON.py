@@ -23,7 +23,7 @@ socnetworks =['ВКонтакте', 'Instagram', 'Telegram', 'Пароли']
 
 
 #Пример данных для поиска, потом подгружать с БД/запроса (?)
-keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович'] # 'Сидоров Вячеслав Олегович', 
+keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович', '+79273256889', '+79173649678'] # 'Сидоров Вячеслав Олегович', 
                #'Куприн Вячеслав Александрович']
 #['Антонов Вячеслав Олегович'] 
 
@@ -67,7 +67,7 @@ async def doc_handler(event):
 async def query_handler(event):
     global action_count
     await event.message.click(countries.index('Россия')+1)
-    await asyncio.sleep(1e-3) #Информацию от бота при неудаче не выходит поймать в event, 
+    '''await asyncio.sleep(1e-3) #Информацию от бота при неудаче не выходит поймать в event, 
 #потому приходится немного ждать и просматривать историю сообщений (бот правит/удаляет сообщения при неудаче)
     async for message in client.iter_messages(entity=target_chat, limit=2):
         try:
@@ -83,13 +83,14 @@ async def query_handler(event):
             pass
         if 'заблокирована' in message.text:
             #Это означает, что исчерпаны запросы для конкретного аккаунта telegram на сегодня
-            return
+            return'''
 
 
 @njit
 @client.on(events.NewMessage(chats=target_chat))
 async def decline_handler(event):
-    async for message in client.iter_messages(entity=target_chat, limit=3):
+    global action_count
+    async for message in client.iter_messages(entity=target_chat, limit=1):
         try:
             if 'ограничил' in message.text or 'не удалось' in message.text:
                 #Позже отправлять в БД (?) соответствующее неудачному запросу сообщение
