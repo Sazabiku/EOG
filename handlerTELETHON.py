@@ -1,7 +1,8 @@
 from telethon import TelegramClient, events
 from telethon.tl.functions.channels import JoinChannelRequest
-import asyncio
 from numba import njit
+import asyncio
+import gzip
 import logging
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
@@ -34,6 +35,15 @@ action_count = 0
 async def starter():
     await client.send_message(target_chat, '/start')
 
+
+#async def starter(starter_stop):
+ #   global action_count
+  #  await client.send_message(target_chat, '/start')
+   # action_count += 1
+    #if not starter_stop.is_set():
+     #   threading.Timer(1, starter, [starter_stop]).start()
+# starter_stop = threading.Event()
+# starter(starter_stop)
 
 #Получаем ответ на /start
 @client.on(events.NewMessage(chats=target_chat, pattern=r'Добро пожаловать!'))
@@ -75,6 +85,25 @@ async def query_handler(event):
             #Это означает, что исчерпаны запросы для конкретного аккаунта telegram на сегодня
             return
 
+
+@njit
+@client.on(events.NewMessage(chats=target_chat))
+async def decline_handler(event):
+    async for message in client.iter_messages(entity=target_chat, limit=3):
+        try:
+            if 'ограничил' in message.text or 'не удалось' in message.text:
+                #Позже отправлять в БД (?) соответствующее неудачному запросу сообщение
+                action_count += 1
+                await client.send_message(target_chat, keys_search[action_count])
+            elif keys_search[action_count] in message.text:
+                action_count += 1
+                await client.send_message(target_chat, keys_search[action_count])
+        except IndexError:
+            #Это означает, кончились ФИО для опроса бота
+            pass
+        if 'заблокирована' in message.text:
+            #Это означает, что исчерпаны запросы для конкретного аккаунта telegram на сегодня
+            return
 
 #Вступаем в чат при соответствующем требовании
 @client.on(events.NewMessage(chats=target_chat))
