@@ -2,3 +2,39 @@ syntax = "proto3";
 
 package eogapi;
 
+
+// Фукнции запроса к приложению и возращения данных клиенту
+service askEOG {
+
+    rpc askEOG () returns (SearchInfo);
+    rpc giveResults (SearchInfo) returns (SearchResults);
+}
+
+
+// Данные конкретного человека для запроса
+message Individ {
+    string input_info = 7;
+    string search_choice = 8;
+}
+
+
+// Данные для запроса
+message SearchInfo {
+    repeated Individ individs = 8;
+}
+
+
+// Данные конкретного человека после поиска информации
+message Persona {
+    string name = 1;
+    string INN = 2;
+    string SNILS = 3;
+    string number = 4;
+    string search_info = 5;
+}
+
+
+// Возвращаемые сервером данные
+message SearchResults {
+    repeated Persona personas = 6;
+}
