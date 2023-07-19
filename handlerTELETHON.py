@@ -81,7 +81,7 @@ async def query_handler(event):
     await event.message.click(countries.index('Россия')+1)
 
 
-
+#Обработка сообщений о невозможности поиска, достижении предела запросов на день
 @njit
 @client.on(events.NewMessage(chats=target_chat))
 async def decline_handler(event):
@@ -120,6 +120,7 @@ async def greet_handler(event):
         await event.reply(keys_search[action_count]) #subject to change
 
 
+#Выбираем все соцсети при поиске по имени пользователя
 @client.on(events.NewMessage(chats=target_chat))
 async def socnet_handler(event):
     if 'Выберите направление поиска' in event.text:
@@ -130,6 +131,7 @@ async def socnet_handler(event):
         await event.message.click(socnetworks.index('Telegram'))    
 
 
+#Выбираем дополнительную информацию в меню бота, в которых есть подобная возможность
 @client.on(events.NewMessage(chats=target_chat))
 async def group_handler(event):
     if 'VIN' in event.text:

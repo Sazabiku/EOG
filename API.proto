@@ -4,6 +4,7 @@ package eogapi;
 
 
 // Фукнции запроса к приложению и возращения данных клиенту
+//make SearchInfo a stream?
 service askEOG {
 
     rpc Get (SearchInfo) returns (stream SearchResults);
