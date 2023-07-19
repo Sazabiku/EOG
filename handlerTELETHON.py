@@ -140,6 +140,11 @@ async def group_handler(event):
             await event.click(4)
         except:
             pass
+    elif 'Транзакций' in event.text:
+        try:
+            await event.click(0)
+        except:
+            pass
 
 
 #Запускаем в работу
