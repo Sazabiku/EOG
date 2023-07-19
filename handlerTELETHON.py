@@ -75,7 +75,6 @@ async def doc_handler(event):
             pass
 
 #Работаем с query-ответами бота, выбираем страну для посика, проверяем, удачный ли ответ и продолжаем опрашивать бота
-@njit
 @client.on(events.NewMessage(chats=target_chat, pattern=r'Выберите доступные действия:'))
 async def query_handler(event):
     global action_count
@@ -115,14 +114,12 @@ async def group_handler(event):
 
 
 #Получаем ответ на подпику на группу
-@njit
 @client.on(events.NewMessage(chats=target_chat))
 async def greet_handler(event):
     if 'Вы можете прислать боту запросы в следующем формате:' in event.text:
         await event.reply(keys_search[action_count]) #subject to change
 
 
-@njit
 @client.on(events.NewMessage(chats=target_chat))
 async def socnet_handler(event):
     if 'Выберите направление поиска' in event.text:

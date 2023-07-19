@@ -6,8 +6,7 @@ package eogapi;
 // Фукнции запроса к приложению и возращения данных клиенту
 service askEOG {
 
-    rpc askEOG () returns (SearchInfo);
-    rpc giveResults (SearchInfo) returns (SearchResults);
+    rpc Get (SearchInfo) returns (stream SearchResults);
 }
 
 
