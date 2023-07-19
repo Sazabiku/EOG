@@ -21,7 +21,7 @@ countries = ['Россия', 'Украина', 'Беларусь', 'Казахс
 
 socnetworks = ['Вконтакте', 'Instagram', 'Telegram', 'Пароли']
 
-key_words = ['ФИО', 'Город', 'Имя', 'Адрес', 'ИНН', 'Адрес', 'Номер', 'VIN', 'База данных', 'СНИЛС', 'Совпадения', 'Номер']
+key_words = ['ФИО', 'Город', 'Имя', 'Адрес', 'ИНН', 'Адрес', 'Номер', 'VIN', 'База данных', 'СНИЛС', 'Совпадения', 'Номер', 'ОГРН']
 
 decline_words = ['ограничил', 'не удалось', 'не найдено', 'не найдены']
 
@@ -131,6 +131,16 @@ async def socnet_handler(event):
         await event.message.click(socnetworks.index('Instagram'))
         await asyncio.sleep(0.1)
         await event.message.click(socnetworks.index('Telegram'))    
+
+
+@client.on(events.NewMessage(chats=target_chat))
+async def group_handler(event):
+    if 'VIN' in event.text:
+        try:
+            await event.click(4)
+        except:
+            pass
+
 
 #Запускаем в работу
 if __name__ == "__main__":
