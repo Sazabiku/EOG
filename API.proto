@@ -7,28 +7,28 @@ package eogapi;
 //make SearchInfo a stream?
 service askEOG {
 
-    rpc Get (SearchInfo) returns (stream SearchResults);
+    rpc Get (stream SearchSlice) returns (stream SearchResults);
 }
 
 
 // Данные конкретного человека для запроса
-message Individ {
+message SearchSlice {
     string input_info = 7;
     optional string search_choice = 8;
 }
 
 
 // Данные для запроса
-message SearchInfo {
-    repeated Individ individs = 8;
+message info_to_search {
+    repeated SearchSlice info = 9;
 }
 
 
 // Данные конкретного человека после поиска информации
 message Persona {
     string name = 1;
-    string INN = 2;
-    string SNILS = 3;
+    string inn = 2;
+    string snils = 3;
     string number = 4;
     string search_info = 5;
 }
