@@ -1,40 +1,40 @@
 syntax = "proto3";
 
-package eogapi;
+package eog_serve;
 
+
+// Отсутствует передача файлов, возможно добавить позже (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
 
 // Фукнции запроса к приложению и возращения данных клиенту
-//make SearchInfo a stream?
 service askEOG {
 
-    rpc Get (stream SearchSlice) returns (stream SearchResults);
+    rpc Get (SearchSlice) returns (SearchResults);
+    rpc Get_UStream (SearchSlice) returns (stream Persona);
+    rpc Get_BStream (stream SearchSlice) returns (stream Persona);
+
 }
 
 
 // Данные конкретного человека для запроса
 message SearchSlice {
-    string input_info = 7;
-    optional string search_choice = 8;
+    string input_info = 1;
+    optional string search_choice = 2;
 }
 
 
 // Данные для запроса
 message info_to_search {
-    repeated SearchSlice info = 9;
+    repeated SearchSlice info = 3;
 }
 
 
 // Данные конкретного человека после поиска информации
 message Persona {
-    string name = 1;
-    string inn = 2;
-    string snils = 3;
-    string number = 4;
-    string search_info = 5;
+    string search_info = 4;
 }
 
 
 // Возвращаемые сервером данные
 message SearchResults {
-    repeated Persona personas = 6;
+    repeated Persona personas = 5;
 }
