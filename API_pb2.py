@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tAPI.proto\x12\teog_serve\"O\n\x0bSearchSlice\x12\x12\n\ninput_info\x18\x01 \x01(\t\x12\x1a\n\rsearch_choice\x18\x02 \x01(\tH\x00\x88\x01\x01\x42\x10\n\x0e_search_choice\"6\n\x0einfo_to_search\x12$\n\x04info\x18\x03 \x03(\x0b\x32\x16.eog_serve.SearchSlice\"\x1e\n\x07Persona\x12\x13\n\x0bsearch_info\x18\x04 \x01(\t\"5\n\rSearchResults\x12$\n\x08personas\x18\x05 \x03(\x0b\x32\x12.eog_serve.Persona2\xbd\x01\n\x06\x61skEOG\x12\x37\n\x03Get\x12\x16.eog_serve.SearchSlice\x1a\x18.eog_serve.SearchResults\x12;\n\x0bGet_UStream\x12\x16.eog_serve.SearchSlice\x1a\x12.eog_serve.Persona0\x01\x12=\n\x0bGet_BStream\x12\x16.eog_serve.SearchSlice\x1a\x12.eog_serve.Persona(\x01\x30\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tAPI.proto\x12\x03\x65og\"-\n\tLoginInfo\x12\x0e\n\x06\x61pi_id\x18\x06 \x01(\t\x12\x10\n\x08\x61pi_hash\x18\x07 \x01(\t\" \n\x0b\x43onfirmCode\x12\x11\n\tconf_code\x18\x08 \x01(\t\"\'\n\x0fResponseSuccess\x12\x14\n\x0csuccess_code\x18\t \x01(\t\"O\n\x0bSearchSlice\x12\x12\n\ninput_info\x18\x01 \x01(\t\x12\x1a\n\rsearch_choice\x18\x02 \x01(\tH\x00\x88\x01\x01\x42\x10\n\x0e_search_choice\",\n\nSearchInfo\x12\x1e\n\x04info\x18\x03 \x03(\x0b\x32\x10.eog.SearchSlice\"\x1e\n\x07Persona\x12\x13\n\x0bsearch_info\x18\x04 \x01(\t\"/\n\rSearchResults\x12\x1e\n\x08personas\x18\x05 \x03(\x0b\x32\x0c.eog.Persona2\xfb\x01\n\x03\x45OG\x12*\n\x03GET\x12\x0f.eog.SearchInfo\x1a\x12.eog.SearchResults\x12\x30\n\rGET_RESSTREAM\x12\x0f.eog.SearchInfo\x1a\x0c.eog.Persona0\x01\x12\x32\n\x0cGET_BISTREAM\x12\x10.eog.SearchSlice\x1a\x0c.eog.Persona(\x01\x30\x01\x12-\n\x05LOGIN\x12\x0e.eog.LoginInfo\x1a\x14.eog.ResponseSuccess\x12\x33\n\tSEND_CODE\x12\x10.eog.ConfirmCode\x1a\x14.eog.ResponseSuccessb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -21,14 +21,20 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'API_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _globals['_SEARCHSLICE']._serialized_start=24
-  _globals['_SEARCHSLICE']._serialized_end=103
-  _globals['_INFO_TO_SEARCH']._serialized_start=105
-  _globals['_INFO_TO_SEARCH']._serialized_end=159
-  _globals['_PERSONA']._serialized_start=161
-  _globals['_PERSONA']._serialized_end=191
-  _globals['_SEARCHRESULTS']._serialized_start=193
-  _globals['_SEARCHRESULTS']._serialized_end=246
-  _globals['_ASKEOG']._serialized_start=249
-  _globals['_ASKEOG']._serialized_end=438
+  _globals['_LOGININFO']._serialized_start=18
+  _globals['_LOGININFO']._serialized_end=63
+  _globals['_CONFIRMCODE']._serialized_start=65
+  _globals['_CONFIRMCODE']._serialized_end=97
+  _globals['_RESPONSESUCCESS']._serialized_start=99
+  _globals['_RESPONSESUCCESS']._serialized_end=138
+  _globals['_SEARCHSLICE']._serialized_start=140
+  _globals['_SEARCHSLICE']._serialized_end=219
+  _globals['_SEARCHINFO']._serialized_start=221
+  _globals['_SEARCHINFO']._serialized_end=265
+  _globals['_PERSONA']._serialized_start=267
+  _globals['_PERSONA']._serialized_end=297
+  _globals['_SEARCHRESULTS']._serialized_start=299
+  _globals['_SEARCHRESULTS']._serialized_end=346
+  _globals['_EOG']._serialized_start=349
+  _globals['_EOG']._serialized_end=600
 # @@protoc_insertion_point(module_scope)

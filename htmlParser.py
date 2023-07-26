@@ -8,34 +8,35 @@ class Dictlist(dict):
             super(Dictlist, self).__setitem__(key, [])
         self[key].append(value)
 
+def parse_html (filename_input, filename_output):
 
-with open('downloads/Куприн_Вячеслав_Александрович_2.html', 'r', encoding='utf-8') as f:
+    with open(filename_input, 'r', encoding='utf-8') as f:
 
-    contents = f.read()
+        contents = f.read()
 
-    soup = BeautifulSoup(contents, 'lxml')
+        soup = BeautifulSoup(contents, 'lxml')
 
-    root = soup.html
-    
-    #for tag in soup.find_all('div'):
-     #   print(f'{tag.text}')
+        root = soup.html
         
-    #html_text = soup.find_all('div')
-    
-    with open ('htmltext.txt', 'w', encoding='utf-8') as txtFile:
-        
-        
-        #"class": "grid_column_title"
-        
-        tags =[]
-        results=[]
-        
-        for tag in soup.find_all("div", class_="grid_column_title"):
-            tags.append(tag.text)
+        #for tag in soup.find_all('div'):
+        #   print(f'{tag.text}')
             
-        for result in soup.find_all("div", class_="grid_column_result"):
-            results.append(result.text)
+        #html_text = soup.find_all('div')
+        
+        with open (filename_output, 'w', encoding='utf-8') as outf:
             
             
-        for key, value in zip(tags, results): 
-            txtFile.write('%s %s\n' % (key, value))
+            #"class": "grid_column_title"
+            
+            tags =[]
+            results=[]
+            
+            for tag in soup.find_all("div", class_="grid_column_title"):
+                tags.append(tag.text)
+                
+            for result in soup.find_all("div", class_="grid_column_result"):
+                results.append(result.text)
+                
+                
+            for key, value in zip(tags, results): 
+                outf.write('%s %s\n' % (key, value))

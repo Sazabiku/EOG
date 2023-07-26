@@ -1,17 +1,33 @@
 syntax = "proto3";
 
-package eog_serve;
+package eog;
 
 
 // Отсутствует передача файлов, возможно добавить позже (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
 
 // Фукнции запроса к приложению и возращения данных клиенту
-service askEOG {
+service EOG {
 
-    rpc Get (SearchSlice) returns (SearchResults);
-    rpc Get_UStream (SearchSlice) returns (stream Persona);
-    rpc Get_BStream (stream SearchSlice) returns (stream Persona);
+    rpc GET (SearchInfo) returns (SearchResults);
+    rpc GET_RESSTREAM (SearchInfo) returns (stream Persona);
+    rpc GET_BISTREAM (stream SearchSlice) returns (stream Persona);
+    rpc LOGIN (LoginInfo) returns (ResponseSuccess);
+    rpc SEND_CODE (ConfirmCode) returns (ResponseSuccess);
 
+}
+
+
+message LoginInfo {
+    string api_id = 6;
+    string api_hash = 7;
+}
+
+message ConfirmCode {
+    string conf_code = 8;
+}
+
+message ResponseSuccess {
+    string success_code = 9;
 }
 
 
@@ -23,7 +39,7 @@ message SearchSlice {
 
 
 // Данные для запроса
-message info_to_search {
+message SearchInfo {
     repeated SearchSlice info = 3;
 }
 

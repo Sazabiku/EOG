@@ -2,10 +2,7 @@ from telethon import TelegramClient, events
 from telethon.tl.functions.channels import JoinChannelRequest
 from numba import njit
 import asyncio
-#import gzip
-import logging
-logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
-                    level=logging.WARNING)
+
 
 #Данные для аккаунта +7 9273091197
 #Получать данные для аккаунтов через БД/скрипт (?)
