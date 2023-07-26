@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package eog;
 
+// python -m grpc_tools.protoc -I . --python_out=. --grpc_python_out=. API.proto
 
 // Отсутствует передача файлов, возможно добавить позже (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
 
