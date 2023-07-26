@@ -27,10 +27,9 @@ class EOGServicer(API_pb2_grpc.EOGServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     API_pb2_grpc.add_EOGServicer_to_server(EOGServicer(), server)
-    server.add_insecure_port('localhost:3128')
+    server.add_insecure_port('localhost:3129')
     server.start()
-    server.wait_for_termination(
-    )
+    server.wait_for_termination()
     
 def get_info_from_handler():
     pass
