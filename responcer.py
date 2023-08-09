@@ -1,7 +1,7 @@
 import grpc
 import API_pb2
 import API_pb2_grpc
-import handler
+import bot_handler
 
 
 import time
@@ -15,11 +15,15 @@ class EOGServicer(API_pb2_grpc.EOGServicer):
     def GET_BISTREAM(self, request_iterator, context):
         return super().GET_BISTREAM(request_iterator, context)
     
+    
     def GET_RESSTREAM(self, request, context):
         return super().GET_RESSTREAM(request, context)
+    #should use generator to make a data stream
+    
     
     def LOGIN(self, request, context):
         return super().LOGIN(request, context)
+    
     
     def SEND_CODE(self, request, context):
         return super().SEND_CODE(request, context)
@@ -35,7 +39,7 @@ def get_info_from_handler():
     pass
 
 def start_handler():
-    handler.main()
+    bot_handler.main()
     
 if __name__ == "__main__":
     serve();
