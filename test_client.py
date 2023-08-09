@@ -20,7 +20,7 @@ def get_client_stream():
         
 def run():
     with grpc.insecure_channel('localhost:3129') as channel:
-        stub =API_pb2_grpc.EOGStub(channel)
+        stub = API_pb2_grpc.EOGStub(channel)
         print('1. Uni message')
         print('2. Stream')
         rpc_call = input ('Your choice: ')
