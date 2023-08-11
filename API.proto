@@ -4,54 +4,73 @@ package eog;
 
 // python -m grpc_tools.protoc -I . --python_out=. --grpc_python_out=. API.proto
 
-// Отсутствует передача файлов, возможно добавить позже (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
+// (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
 
 // Фукнции запроса к приложению и возращения данных клиенту
 service EOG {
 
-    rpc GET (SearchInfo) returns (SearchResults);
-    rpc GET_RESSTREAM (SearchInfo) returns (stream Persona);
-    rpc GET_BISTREAM (stream SearchSlice) returns (stream Persona);
-    rpc LOGIN (LoginInfo) returns (ResponseSuccess);
+    rpc GET_BY_NAME (SearchInput) returns (NameInfo);
+    rpc GET_BY_NUM (SearchInput) returns (NumInfo);
+    rpc GET_BY_CAR (SearchInput) returns (CarInfo);
+    rpc GET_BY_SM (SearchInput) returns (SMInfo);
+    rpc GET_BY_EMAIL (SearchInput) returns (EMailInfo);
+    rpc GET_BY_ADR (SearchInput) returns (AdrInfo);
+    rpc GET_BY_CAD (SearchInput) returns (CadInfo);
+    rpc GET_BY_CPNY (SearchInput) returns (CNPYInfo);
+    rpc GET_BY_INN (SearchInput) returns (INNInfo);
+    rpc GET_BY_SNILS (SearchInput) returns (SNILSInfo);
+    rpc SEND_LOGIN (LoginInfo) returns (ResponseSuccess);
     rpc SEND_CODE (ConfirmCode) returns (ResponseSuccess);
 
 }
 
 
 message LoginInfo {
-    string api_id = 6;
-    string api_hash = 7;
+    string api_id = 1;
+    string api_hash = 2;
 }
 
 message ConfirmCode {
-    string conf_code = 8;
+    string conf_code = 3;
 }
 
 message ResponseSuccess {
-    string success_code = 9;
+    string success_code = 4;
 }
 
 
-// Данные конкретного человека для запроса
-message SearchSlice {
-    string input_info = 1;
-    optional string search_choice = 2;
+message SearchInput {
+    string input_info = 5;
+    optional string choice = 6;
+}
+
+message NameInfo {}
+
+
+message NumInfo {}
+
+
+message CarInfo {}
+
+
+message SMInfo {}
+
+
+message EMailInfo {
 }
 
 
-// Данные для запроса
-message SearchInfo {
-    repeated SearchSlice info = 3;
+message AdrInfo {
 }
 
 
-// Данные конкретного человека после поиска информации
-message Persona {
-    string search_info = 4;
-}
+message CadInfo {}
 
 
-// Возвращаемые сервером данные
-message SearchResults {
-    repeated Persona personas = 5;
-}
+message CNPYInfo {}
+
+
+message INNInfo {}
+
+
+message SNILSInfo {}
