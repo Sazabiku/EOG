@@ -23,9 +23,7 @@ key_words = ['ФИО', 'Город', 'Имя', 'Адрес', 'ИНН', 'Адре
 decline_words = ['ограничил', 'не удалось', 'не найдено', 'не найдены']
 
 #Пример данных для поиска, потом подгружать с БД/запроса (?)
-keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович', '+79173286889', '+79173649678'] # 'Сидоров Вячеслав Олегович', 
-               #'Куприн Вячеслав Александрович']
-#['Антонов Вячеслав Олегович'] 
+keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович', '+79173286889', '+79173649678']
 
 #Ведем подсчет запросов к боту
 action_count = 0
@@ -56,7 +54,6 @@ async def greet_handler(event):
 #       await client.send_message(target_chat, '/snils' + keys_search[action_count])
 #       await client.send_message(target_chat, )
 #Получаем данные html ответа бота
-@njit
 @client.on(events.NewMessage(chats=target_chat))
 async def doc_handler(event):
     global action_count
@@ -79,7 +76,6 @@ async def query_handler(event):
 
 
 #Обработка сообщений о невозможности поиска, достижении предела запросов на день
-@njit
 @client.on(events.NewMessage(chats=target_chat))
 async def decline_handler(event):
     global action_count
