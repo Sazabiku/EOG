@@ -1,7 +1,8 @@
 from telethon import TelegramClient, events
 from telethon.tl.functions.channels import JoinChannelRequest
-from numba import njit
 import asyncio
+import API_pb2
+import API_pb2_grpc
 
 
 #Данные для аккаунта +7 9273091197

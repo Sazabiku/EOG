@@ -5,20 +5,46 @@ import bot_handler
 
 
 import time
-from concurrent import futures
 
 class EOGServicer(API_pb2_grpc.EOGServicer):
-    def GET(self, request, context):
+    def GET_BY_NAME(self, request, context):
         return super().GET(request, context)
     
     
-    def GET_BISTREAM(self, request_iterator, context):
-        return super().GET_BISTREAM(request_iterator, context)
+    def GET_BY_NUM(self, request, context):
+        return super().GET(request, context)
     
     
-    def GET_RESSTREAM(self, request, context):
-        return super().GET_RESSTREAM(request, context)
-    #should use generator to make a data stream
+    def GET_BY_CAR(self, request, context):
+        return super().GET(request, context)
+    
+    
+    def GET_BY_SM(self, request, context):
+        return super().GET_BY_SM(request, context)
+    
+    
+    def GET_BY_ADR(self, request, context):
+        return super().GET_BY_ADR(request, context)
+    
+    
+    def GET_BY_CAD(self, request, context):
+        return super().GET_BY_CAD(request, context)
+    
+    
+    def GET_BY_EMAIL(self, request, context):
+        return super().GET_BY_EMAIL(request, context)
+    
+    
+    def GET_BY_CPNY(self, request, context):
+        return super().GET_BY_CPNY(request, context)
+    
+    
+    def GET_BY_INN(self, request, context):
+        return super().GET_BY_INN(request, context)
+    
+    
+    def GET_BY_SNILS(self, request, context):
+        return super().GET_BY_SNILS(request, context)
     
     
     def LOGIN(self, request, context):
@@ -29,7 +55,7 @@ class EOGServicer(API_pb2_grpc.EOGServicer):
         return super().SEND_CODE(request, context)
     
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server()
     API_pb2_grpc.add_EOGServicer_to_server(EOGServicer(), server)
     server.add_insecure_port('localhost:3129')
     server.start()

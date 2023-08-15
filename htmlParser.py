@@ -18,16 +18,7 @@ def parse_html (filename_input, filename_output):
 
         root = soup.html
         
-        #for tag in soup.find_all('div'):
-        #   print(f'{tag.text}')
-            
-        #html_text = soup.find_all('div')
-        
         with open (filename_output, 'w', encoding='utf-8') as outf:
-            
-            
-            #"class": "grid_column_title"
-            
             tags =[]
             results=[]
             
