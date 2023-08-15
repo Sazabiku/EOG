@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tAPI.proto\x12\x03\x65og\"-\n\tLoginInfo\x12\x0e\n\x06\x61pi_id\x18\x06 \x01(\t\x12\x10\n\x08\x61pi_hash\x18\x07 \x01(\t\" \n\x0b\x43onfirmCode\x12\x11\n\tconf_code\x18\x08 \x01(\t\"\'\n\x0fResponseSuccess\x12\x14\n\x0csuccess_code\x18\t \x01(\t\"O\n\x0bSearchSlice\x12\x12\n\ninput_info\x18\x01 \x01(\t\x12\x1a\n\rsearch_choice\x18\x02 \x01(\tH\x00\x88\x01\x01\x42\x10\n\x0e_search_choice\",\n\nSearchInfo\x12\x1e\n\x04info\x18\x03 \x03(\x0b\x32\x10.eog.SearchSlice\"\x1e\n\x07Persona\x12\x13\n\x0bsearch_info\x18\x04 \x01(\t\"/\n\rSearchResults\x12\x1e\n\x08personas\x18\x05 \x03(\x0b\x32\x0c.eog.Persona2\xfb\x01\n\x03\x45OG\x12*\n\x03GET\x12\x0f.eog.SearchInfo\x1a\x12.eog.SearchResults\x12\x30\n\rGET_RESSTREAM\x12\x0f.eog.SearchInfo\x1a\x0c.eog.Persona0\x01\x12\x32\n\x0cGET_BISTREAM\x12\x10.eog.SearchSlice\x1a\x0c.eog.Persona(\x01\x30\x01\x12-\n\x05LOGIN\x12\x0e.eog.LoginInfo\x1a\x14.eog.ResponseSuccess\x12\x33\n\tSEND_CODE\x12\x10.eog.ConfirmCode\x1a\x14.eog.ResponseSuccessb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tAPI.proto\x12\x03\x65og\"-\n\tLoginInfo\x12\x0e\n\x06\x61pi_id\x18\x01 \x01(\t\x12\x10\n\x08\x61pi_hash\x18\x02 \x01(\t\" \n\x0b\x43onfirmCode\x12\x11\n\tconf_code\x18\x03 \x01(\t\"\'\n\x0fResponseSuccess\x12\x14\n\x0csuccess_code\x18\x04 \x01(\t\"A\n\x0bSearchInput\x12\x12\n\ninput_info\x18\x05 \x01(\t\x12\x13\n\x06\x63hoice\x18\x06 \x01(\tH\x00\x88\x01\x01\x42\t\n\x07_choice\"E\n\x08Response\x12\x11\n\ttext_info\x18\x07 \x03(\t\x12\x12\n\nparse_info\x18\x08 \x03(\t\x12\x12\n\nimage_info\x18\t \x03(\t2\xc9\x04\n\x03\x45OG\x12.\n\x0bGET_BY_NAME\x12\x10.eog.SearchInput\x1a\r.eog.Response\x12-\n\nGET_BY_NUM\x12\x10.eog.SearchInput\x1a\r.eog.Response\x12-\n\nGET_BY_CAR\x12\x10.eog.SearchInput\x1a\r.eog.Response\x12,\n\tGET_BY_SM\x12\x10.eog.SearchInput\x1a\r.eog.Response\x12/\n\x0cGET_BY_EMAIL\x12\x10.eog.SearchInput\x1a\r.eog.Response\x12-\n\nGET_BY_ADR\x12\x10.eog.SearchInput\x1a\r.eog.Response\x12-\n\nGET_BY_CAD\x12\x10.eog.SearchInput\x1a\r.eog.Response\x12.\n\x0bGET_BY_CPNY\x12\x10.eog.SearchInput\x1a\r.eog.Response\x12-\n\nGET_BY_INN\x12\x10.eog.SearchInput\x1a\r.eog.Response\x12/\n\x0cGET_BY_SNILS\x12\x10.eog.SearchInput\x1a\r.eog.Response\x12\x32\n\nSEND_LOGIN\x12\x0e.eog.LoginInfo\x1a\x14.eog.ResponseSuccess\x12\x33\n\tSEND_CODE\x12\x10.eog.ConfirmCode\x1a\x14.eog.ResponseSuccessb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -27,14 +27,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_CONFIRMCODE']._serialized_end=97
   _globals['_RESPONSESUCCESS']._serialized_start=99
   _globals['_RESPONSESUCCESS']._serialized_end=138
-  _globals['_SEARCHSLICE']._serialized_start=140
-  _globals['_SEARCHSLICE']._serialized_end=219
-  _globals['_SEARCHINFO']._serialized_start=221
-  _globals['_SEARCHINFO']._serialized_end=265
-  _globals['_PERSONA']._serialized_start=267
-  _globals['_PERSONA']._serialized_end=297
-  _globals['_SEARCHRESULTS']._serialized_start=299
-  _globals['_SEARCHRESULTS']._serialized_end=346
-  _globals['_EOG']._serialized_start=349
-  _globals['_EOG']._serialized_end=600
+  _globals['_SEARCHINPUT']._serialized_start=140
+  _globals['_SEARCHINPUT']._serialized_end=205
+  _globals['_RESPONSE']._serialized_start=207
+  _globals['_RESPONSE']._serialized_end=276
+  _globals['_EOG']._serialized_start=279
+  _globals['_EOG']._serialized_end=864
 # @@protoc_insertion_point(module_scope)

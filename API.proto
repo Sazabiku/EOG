@@ -9,16 +9,16 @@ package eog;
 // Фукнции запроса к приложению и возращения данных клиенту
 service EOG {
 
-    rpc GET_BY_NAME (SearchInput) returns (NameInfo);
-    rpc GET_BY_NUM (SearchInput) returns (NumInfo);
-    rpc GET_BY_CAR (SearchInput) returns (CarInfo);
-    rpc GET_BY_SM (SearchInput) returns (SMInfo);
-    rpc GET_BY_EMAIL (SearchInput) returns (EMailInfo);
-    rpc GET_BY_ADR (SearchInput) returns (AdrInfo);
-    rpc GET_BY_CAD (SearchInput) returns (CadInfo);
-    rpc GET_BY_CPNY (SearchInput) returns (CNPYInfo);
-    rpc GET_BY_INN (SearchInput) returns (INNInfo);
-    rpc GET_BY_SNILS (SearchInput) returns (SNILSInfo);
+    rpc GET_BY_NAME (SearchInput) returns (Response);
+    rpc GET_BY_NUM (SearchInput) returns (Response);
+    rpc GET_BY_CAR (SearchInput) returns (Response);
+    rpc GET_BY_SM (SearchInput) returns (Response);
+    rpc GET_BY_EMAIL (SearchInput) returns (Response);
+    rpc GET_BY_ADR (SearchInput) returns (Response);
+    rpc GET_BY_CAD (SearchInput) returns (Response);
+    rpc GET_BY_CPNY (SearchInput) returns (Response);
+    rpc GET_BY_INN (SearchInput) returns (Response);
+    rpc GET_BY_SNILS (SearchInput) returns (Response);
     rpc SEND_LOGIN (LoginInfo) returns (ResponseSuccess);
     rpc SEND_CODE (ConfirmCode) returns (ResponseSuccess);
 
@@ -44,33 +44,9 @@ message SearchInput {
     optional string choice = 6;
 }
 
-message NameInfo {}
 
-
-message NumInfo {}
-
-
-message CarInfo {}
-
-
-message SMInfo {}
-
-
-message EMailInfo {
+message Response {
+    repeated string text_info = 7;
+    repeated string parse_info = 8;
+    repeated string image_info = 9;
 }
-
-
-message AdrInfo {
-}
-
-
-message CadInfo {}
-
-
-message CNPYInfo {}
-
-
-message INNInfo {}
-
-
-message SNILSInfo {}

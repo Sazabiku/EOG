@@ -6,8 +6,8 @@ import asyncio
 
 #Данные для аккаунта +7 9273091197
 #Получать данные для аккаунтов через БД/скрипт (?)
-api_id = 24931692 
-api_hash = '7acc18430237abb56186b10546ee2cd3'
+api_id = 24931692 # api_id
+api_hash = '7acc18430237abb56186b10546ee2cd3' # api_hash
 client = TelegramClient('anon', api_id, api_hash, system_version='4.16.30-vxCUSTOM')
 target_chat = '@eyeofgodrbot'
 
@@ -33,15 +33,6 @@ action_count = 0
 async def starter():
     await client.send_message(target_chat, '/start')
 
-
-#async def starter(starter_stop):
- #   global action_count
-  #  await client.send_message(target_chat, '/start')
-   # action_count += 1
-    #if not starter_stop.is_set():
-     #   threading.Timer(1, starter, [starter_stop]).start()
-# starter_stop = threading.Event()
-# starter(starter_stop)
 
 #Получаем ответ на /start
 @client.on(events.NewMessage(chats=target_chat, pattern=r'Добро пожаловать!'))

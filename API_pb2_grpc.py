@@ -6,7 +6,9 @@ import API_pb2 as API__pb2
 
 
 class EOGStub(object):
-    """Отсутствует передача файлов, возможно добавить позже (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
+    """python -m grpc_tools.protoc -I . --python_out=. --grpc_python_out=. API.proto
+
+    (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
 
     Фукнции запроса к приложению и возращения данных клиенту
     """
@@ -17,23 +19,58 @@ class EOGStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GET = channel.unary_unary(
-                '/eog.EOG/GET',
-                request_serializer=API__pb2.SearchInfo.SerializeToString,
-                response_deserializer=API__pb2.SearchResults.FromString,
+        self.GET_BY_NAME = channel.unary_unary(
+                '/eog.EOG/GET_BY_NAME',
+                request_serializer=API__pb2.SearchInput.SerializeToString,
+                response_deserializer=API__pb2.Response.FromString,
                 )
-        self.GET_RESSTREAM = channel.unary_stream(
-                '/eog.EOG/GET_RESSTREAM',
-                request_serializer=API__pb2.SearchInfo.SerializeToString,
-                response_deserializer=API__pb2.Persona.FromString,
+        self.GET_BY_NUM = channel.unary_unary(
+                '/eog.EOG/GET_BY_NUM',
+                request_serializer=API__pb2.SearchInput.SerializeToString,
+                response_deserializer=API__pb2.Response.FromString,
                 )
-        self.GET_BISTREAM = channel.stream_stream(
-                '/eog.EOG/GET_BISTREAM',
-                request_serializer=API__pb2.SearchSlice.SerializeToString,
-                response_deserializer=API__pb2.Persona.FromString,
+        self.GET_BY_CAR = channel.unary_unary(
+                '/eog.EOG/GET_BY_CAR',
+                request_serializer=API__pb2.SearchInput.SerializeToString,
+                response_deserializer=API__pb2.Response.FromString,
                 )
-        self.LOGIN = channel.unary_unary(
-                '/eog.EOG/LOGIN',
+        self.GET_BY_SM = channel.unary_unary(
+                '/eog.EOG/GET_BY_SM',
+                request_serializer=API__pb2.SearchInput.SerializeToString,
+                response_deserializer=API__pb2.Response.FromString,
+                )
+        self.GET_BY_EMAIL = channel.unary_unary(
+                '/eog.EOG/GET_BY_EMAIL',
+                request_serializer=API__pb2.SearchInput.SerializeToString,
+                response_deserializer=API__pb2.Response.FromString,
+                )
+        self.GET_BY_ADR = channel.unary_unary(
+                '/eog.EOG/GET_BY_ADR',
+                request_serializer=API__pb2.SearchInput.SerializeToString,
+                response_deserializer=API__pb2.Response.FromString,
+                )
+        self.GET_BY_CAD = channel.unary_unary(
+                '/eog.EOG/GET_BY_CAD',
+                request_serializer=API__pb2.SearchInput.SerializeToString,
+                response_deserializer=API__pb2.Response.FromString,
+                )
+        self.GET_BY_CPNY = channel.unary_unary(
+                '/eog.EOG/GET_BY_CPNY',
+                request_serializer=API__pb2.SearchInput.SerializeToString,
+                response_deserializer=API__pb2.Response.FromString,
+                )
+        self.GET_BY_INN = channel.unary_unary(
+                '/eog.EOG/GET_BY_INN',
+                request_serializer=API__pb2.SearchInput.SerializeToString,
+                response_deserializer=API__pb2.Response.FromString,
+                )
+        self.GET_BY_SNILS = channel.unary_unary(
+                '/eog.EOG/GET_BY_SNILS',
+                request_serializer=API__pb2.SearchInput.SerializeToString,
+                response_deserializer=API__pb2.Response.FromString,
+                )
+        self.SEND_LOGIN = channel.unary_unary(
+                '/eog.EOG/SEND_LOGIN',
                 request_serializer=API__pb2.LoginInfo.SerializeToString,
                 response_deserializer=API__pb2.ResponseSuccess.FromString,
                 )
@@ -45,30 +82,74 @@ class EOGStub(object):
 
 
 class EOGServicer(object):
-    """Отсутствует передача файлов, возможно добавить позже (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
+    """python -m grpc_tools.protoc -I . --python_out=. --grpc_python_out=. API.proto
+
+    (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
 
     Фукнции запроса к приложению и возращения данных клиенту
     """
 
-    def GET(self, request, context):
+    def GET_BY_NAME(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GET_RESSTREAM(self, request, context):
+    def GET_BY_NUM(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GET_BISTREAM(self, request_iterator, context):
+    def GET_BY_CAR(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def LOGIN(self, request, context):
+    def GET_BY_SM(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GET_BY_EMAIL(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GET_BY_ADR(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GET_BY_CAD(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GET_BY_CPNY(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GET_BY_INN(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GET_BY_SNILS(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SEND_LOGIN(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -83,23 +164,58 @@ class EOGServicer(object):
 
 def add_EOGServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GET': grpc.unary_unary_rpc_method_handler(
-                    servicer.GET,
-                    request_deserializer=API__pb2.SearchInfo.FromString,
-                    response_serializer=API__pb2.SearchResults.SerializeToString,
+            'GET_BY_NAME': grpc.unary_unary_rpc_method_handler(
+                    servicer.GET_BY_NAME,
+                    request_deserializer=API__pb2.SearchInput.FromString,
+                    response_serializer=API__pb2.Response.SerializeToString,
             ),
-            'GET_RESSTREAM': grpc.unary_stream_rpc_method_handler(
-                    servicer.GET_RESSTREAM,
-                    request_deserializer=API__pb2.SearchInfo.FromString,
-                    response_serializer=API__pb2.Persona.SerializeToString,
+            'GET_BY_NUM': grpc.unary_unary_rpc_method_handler(
+                    servicer.GET_BY_NUM,
+                    request_deserializer=API__pb2.SearchInput.FromString,
+                    response_serializer=API__pb2.Response.SerializeToString,
             ),
-            'GET_BISTREAM': grpc.stream_stream_rpc_method_handler(
-                    servicer.GET_BISTREAM,
-                    request_deserializer=API__pb2.SearchSlice.FromString,
-                    response_serializer=API__pb2.Persona.SerializeToString,
+            'GET_BY_CAR': grpc.unary_unary_rpc_method_handler(
+                    servicer.GET_BY_CAR,
+                    request_deserializer=API__pb2.SearchInput.FromString,
+                    response_serializer=API__pb2.Response.SerializeToString,
             ),
-            'LOGIN': grpc.unary_unary_rpc_method_handler(
-                    servicer.LOGIN,
+            'GET_BY_SM': grpc.unary_unary_rpc_method_handler(
+                    servicer.GET_BY_SM,
+                    request_deserializer=API__pb2.SearchInput.FromString,
+                    response_serializer=API__pb2.Response.SerializeToString,
+            ),
+            'GET_BY_EMAIL': grpc.unary_unary_rpc_method_handler(
+                    servicer.GET_BY_EMAIL,
+                    request_deserializer=API__pb2.SearchInput.FromString,
+                    response_serializer=API__pb2.Response.SerializeToString,
+            ),
+            'GET_BY_ADR': grpc.unary_unary_rpc_method_handler(
+                    servicer.GET_BY_ADR,
+                    request_deserializer=API__pb2.SearchInput.FromString,
+                    response_serializer=API__pb2.Response.SerializeToString,
+            ),
+            'GET_BY_CAD': grpc.unary_unary_rpc_method_handler(
+                    servicer.GET_BY_CAD,
+                    request_deserializer=API__pb2.SearchInput.FromString,
+                    response_serializer=API__pb2.Response.SerializeToString,
+            ),
+            'GET_BY_CPNY': grpc.unary_unary_rpc_method_handler(
+                    servicer.GET_BY_CPNY,
+                    request_deserializer=API__pb2.SearchInput.FromString,
+                    response_serializer=API__pb2.Response.SerializeToString,
+            ),
+            'GET_BY_INN': grpc.unary_unary_rpc_method_handler(
+                    servicer.GET_BY_INN,
+                    request_deserializer=API__pb2.SearchInput.FromString,
+                    response_serializer=API__pb2.Response.SerializeToString,
+            ),
+            'GET_BY_SNILS': grpc.unary_unary_rpc_method_handler(
+                    servicer.GET_BY_SNILS,
+                    request_deserializer=API__pb2.SearchInput.FromString,
+                    response_serializer=API__pb2.Response.SerializeToString,
+            ),
+            'SEND_LOGIN': grpc.unary_unary_rpc_method_handler(
+                    servicer.SEND_LOGIN,
                     request_deserializer=API__pb2.LoginInfo.FromString,
                     response_serializer=API__pb2.ResponseSuccess.SerializeToString,
             ),
@@ -116,13 +232,15 @@ def add_EOGServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class EOG(object):
-    """Отсутствует передача файлов, возможно добавить позже (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
+    """python -m grpc_tools.protoc -I . --python_out=. --grpc_python_out=. API.proto
+
+    (подсказки: https://github.com/gooooloo/grpc-file-transfer/tree/master)
 
     Фукнции запроса к приложению и возращения данных клиенту
     """
 
     @staticmethod
-    def GET(request,
+    def GET_BY_NAME(request,
             target,
             options=(),
             channel_credentials=None,
@@ -132,14 +250,14 @@ class EOG(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET',
-            API__pb2.SearchInfo.SerializeToString,
-            API__pb2.SearchResults.FromString,
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET_BY_NAME',
+            API__pb2.SearchInput.SerializeToString,
+            API__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GET_RESSTREAM(request,
+    def GET_BY_NUM(request,
             target,
             options=(),
             channel_credentials=None,
@@ -149,14 +267,14 @@ class EOG(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/eog.EOG/GET_RESSTREAM',
-            API__pb2.SearchInfo.SerializeToString,
-            API__pb2.Persona.FromString,
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET_BY_NUM',
+            API__pb2.SearchInput.SerializeToString,
+            API__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GET_BISTREAM(request_iterator,
+    def GET_BY_CAR(request,
             target,
             options=(),
             channel_credentials=None,
@@ -166,14 +284,14 @@ class EOG(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_stream(request_iterator, target, '/eog.EOG/GET_BISTREAM',
-            API__pb2.SearchSlice.SerializeToString,
-            API__pb2.Persona.FromString,
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET_BY_CAR',
+            API__pb2.SearchInput.SerializeToString,
+            API__pb2.Response.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def LOGIN(request,
+    def GET_BY_SM(request,
             target,
             options=(),
             channel_credentials=None,
@@ -183,7 +301,126 @@ class EOG(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/eog.EOG/LOGIN',
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET_BY_SM',
+            API__pb2.SearchInput.SerializeToString,
+            API__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GET_BY_EMAIL(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET_BY_EMAIL',
+            API__pb2.SearchInput.SerializeToString,
+            API__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GET_BY_ADR(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET_BY_ADR',
+            API__pb2.SearchInput.SerializeToString,
+            API__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GET_BY_CAD(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET_BY_CAD',
+            API__pb2.SearchInput.SerializeToString,
+            API__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GET_BY_CPNY(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET_BY_CPNY',
+            API__pb2.SearchInput.SerializeToString,
+            API__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GET_BY_INN(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET_BY_INN',
+            API__pb2.SearchInput.SerializeToString,
+            API__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GET_BY_SNILS(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/GET_BY_SNILS',
+            API__pb2.SearchInput.SerializeToString,
+            API__pb2.Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SEND_LOGIN(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/eog.EOG/SEND_LOGIN',
             API__pb2.LoginInfo.SerializeToString,
             API__pb2.ResponseSuccess.FromString,
             options, channel_credentials,
