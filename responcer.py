@@ -57,7 +57,7 @@ class EOGServicer(API_pb2_grpc.EOGServicer):
 def serve():
     server = grpc.server()
     API_pb2_grpc.add_EOGServicer_to_server(EOGServicer(), server)
-    server.add_insecure_port('localhost:3129')
+    server.add_insecure_port('localhost:3130')
     server.start()
     server.wait_for_termination()
     

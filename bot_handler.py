@@ -1,6 +1,7 @@
 from telethon import TelegramClient, events
 from telethon.tl.functions.channels import JoinChannelRequest
 import asyncio
+import grpc
 import API_pb2
 import API_pb2_grpc
 
@@ -24,27 +25,36 @@ key_words = ['ФИО', 'Город', 'Имя', 'Адрес', 'ИНН', 'Адре
 decline_words = ['ограничил', 'не удалось', 'не найдено', 'не найдены']
 
 #Пример данных для поиска, потом подгружать с БД/запроса (?)
-keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович', '+79173286889', '+79173649678']
+'''keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович', '+79173286889', '+79173649678']'''
 
-#Ведем подсчет запросов к боту
-action_count = 0
+
+global RESPONCE
+RESPONCE = []
 
 
 #Начинаем общение с ботом
-async def starter():
+async def starter(type_of_request, search_info):
+    global SEARCH_INFO
+    SEARCH_INFO = search_info
+    regular_requests = ['by_name', 'by_num', 'by_sm', 'by_car', 'by_email', 'by_cad']
     await client.send_message(target_chat, '/start')
-
+    if any([substr in type_of_request for substr in regular_requests]):
+        await client.send_message(target_chat, SEARCH_INFO)
+    elif type_of_request == 'by_INN':
+        await client.send_message(target_chat, '\'inn\' ' + SEARCH_INFO)
+    elif type_of_request == 'by_SNILS':
+        await client.send_message(target_chat, '\'snils\' ' + SEARCH_INFO)
+    elif type_of_request == 'by_cpny':
+        await client.send_message(target_chat, '\'company\' ' + SEARCH_INFO)
+    elif type_of_request == 'by_adr':
+        await client.send_message(target_chat, '\'adr\' ' + SEARCH_INFO)
 
 #Получаем ответ на /start
-@client.on(events.NewMessage(chats=target_chat, pattern=r'Добро пожаловать!'))
+'''@client.on(events.NewMessage(chats=target_chat, pattern=r'Добро пожаловать!'))
 async def greet_handler(event):
-    await event.reply(keys_search[action_count])  #subject to change
+    await event.reply(SEARCH_INFO)'''
 
 
-# if keys_search[action_count].isnumeric() and len(keys_search[action_count]) == 14:
-#       await client.send_message(target_chat, '/inf' + keys_search[action_count])
-#       await client.send_message(target_chat, '/snils' + keys_search[action_count])
-#       await client.send_message(target_chat, )
 #Получаем данные html ответа бота
 @client.on(events.NewMessage(chats=target_chat))
 async def doc_handler(event):
@@ -54,11 +64,11 @@ async def doc_handler(event):
     if any([substr in event.text for substr in key_words]):
         with open ('messages.txt', 'a', encoding='utf-8') as file:
             file.write(event.text)
-        try:
-            action_count += 1
-            await client.send_message(target_chat, keys_search[action_count]) #subject to change
+            RESPONCE.append(event.text)
+        '''try:
+            await client.send_message(target_chat, SEARCH_INFO) #subject to change
         except IndexError:
-            pass
+            pass'''
 
 #Работаем с query-ответами бота, выбираем страну для посика, проверяем, удачный ли ответ и продолжаем опрашивать бота
 @client.on(events.NewMessage(chats=target_chat, pattern=r'Выберите доступные действия:'))
@@ -74,12 +84,12 @@ async def decline_handler(event):
     async for message in client.iter_messages(entity=target_chat, limit=1):
         try:
             if any([substr in message.text for substr in decline_words]):
-                #Позже отправлять в БД (?) соответствующее неудачному запросу сообщение
-                action_count += 1
-                await client.send_message(target_chat, keys_search[action_count]) #subject to change
+                
+                #Отправить информацию о неудачном ответе
+                await client.send_message(target_chat, SEARCH_INFO) #subject to change
             elif 'Вы слишком часто выполняете это действие' in message.text:
                 await asyncio.sleep(1)
-                await client.send_message(target_chat, keys_search[action_count]) #subject to change
+                await client.send_message(target_chat, SEARCH_INFO) #subject to change
         except IndexError:
             #Это означает, кончились ФИО для опроса бота
             pass
@@ -102,7 +112,7 @@ async def group_handler(event):
 @client.on(events.NewMessage(chats=target_chat))
 async def greet_handler(event):
     if 'Вы можете прислать боту запросы в следующем формате:' in event.text:
-        await event.reply(keys_search[action_count]) #subject to change
+        await event.reply(SEARCH_INFO)
 
 
 #Выбираем все соцсети при поиске по имени пользователя
@@ -130,8 +140,6 @@ async def group_handler(event):
         except:
             pass
 
-
-#Довести до ума передачу запроса для ИНН-12 (можно не выделять), для СНИЛС (11)
 
 #Запускаем в работу
 if __name__ == "__main__":
