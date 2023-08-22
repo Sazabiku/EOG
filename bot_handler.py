@@ -1,10 +1,6 @@
 from telethon import TelegramClient, events
 from telethon.tl.functions.channels import JoinChannelRequest
 import asyncio
-import grpc
-import API_pb2
-import API_pb2_grpc
-
 
 #Данные для аккаунта +7 9273091197
 #Получать данные для аккаунтов через БД/скрипт (?)
@@ -27,15 +23,18 @@ decline_words = ['ограничил', 'не удалось', 'не найден
 #Пример данных для поиска, потом подгружать с БД/запроса (?)
 '''keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович', '+79173286889', '+79173649678']'''
 
-
+global SEARCH_INFO
+global SEARCH_CHOICE
 global RESPONCE
 RESPONCE = []
 
 
 #Начинаем общение с ботом
-async def starter(type_of_request, search_info):
+async def starter(type_of_request, input_info, input_choice = None):
     global SEARCH_INFO
-    SEARCH_INFO = search_info
+    global SEARCH_CHOICE
+    SEARCH_INFO = input_info
+    SEARCH_CHOICE = input_choice
     regular_requests = ['by_name', 'by_num', 'by_sm', 'by_car', 'by_email', 'by_cad']
     await client.send_message(target_chat, '/start')
     if any([substr in type_of_request for substr in regular_requests]):
@@ -73,8 +72,7 @@ async def doc_handler(event):
 #Работаем с query-ответами бота, выбираем страну для посика, проверяем, удачный ли ответ и продолжаем опрашивать бота
 @client.on(events.NewMessage(chats=target_chat, pattern=r'Выберите доступные действия:'))
 async def query_handler(event):
-    global action_count
-    await event.message.click(countries.index('Россия')+1)
+    await event.message.click(countries.index(SEARCH_CHOICE)+1)
 
 
 #Обработка сообщений о невозможности поиска, достижении предела запросов на день
@@ -84,14 +82,11 @@ async def decline_handler(event):
     async for message in client.iter_messages(entity=target_chat, limit=1):
         try:
             if any([substr in message.text for substr in decline_words]):
-                
-                #Отправить информацию о неудачном ответе
-                await client.send_message(target_chat, SEARCH_INFO) #subject to change
+                RESPONCE.append(SEARCH_INFO + ' - найти информации не удалось')
             elif 'Вы слишком часто выполняете это действие' in message.text:
                 await asyncio.sleep(1)
-                await client.send_message(target_chat, SEARCH_INFO) #subject to change
+                await client.send_message(target_chat, SEARCH_INFO)
         except IndexError:
-            #Это означает, кончились ФИО для опроса бота
             pass
         if 'заблокирована' in message.text:
             #Это означает, что исчерпаны запросы для конкретного аккаунта telegram на сегодня
@@ -145,4 +140,4 @@ async def group_handler(event):
 if __name__ == "__main__":
     with client:
         client.loop.run_until_complete(starter())
-        client.loop.run_forever()
+        client.loop.wait_for_termination()
