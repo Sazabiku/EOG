@@ -8,9 +8,9 @@ class Dictlist(dict):
             super(Dictlist, self).__setitem__(key, [])
         self[key].append(value)
 
-def parse_html (filename_input, filename_output):
+def parse_html (input_file, output_file):
 
-    with open(filename_input, 'r', encoding='utf-8') as f:
+    with open(input_file, 'r', encoding='utf-8') as f:
 
         contents = f.read()
 
@@ -18,7 +18,7 @@ def parse_html (filename_input, filename_output):
 
         root = soup.html
         
-        with open (filename_output, 'w', encoding='utf-8') as outf:
+        with open (output_file, 'w', encoding='utf-8') as outf:
             tags =[]
             results=[]
             
@@ -31,3 +31,8 @@ def parse_html (filename_input, filename_output):
                 
             for key, value in zip(tags, results): 
                 outf.write('%s %s\n' % (key, value))
+
+def read_txt (input_file, output_array):
+    with open (input_file, 'r', encoding='utf-8') as f:
+        txt_data = f.read()
+        output_array = txt_data.split('\n')

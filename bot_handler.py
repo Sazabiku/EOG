@@ -1,13 +1,14 @@
 from telethon import TelegramClient, events
 from telethon.tl.functions.channels import JoinChannelRequest
 import asyncio
+import htmlParser
 
 #Данные для аккаунта +7 9273091197
 #Получать данные для аккаунтов через БД/скрипт (?)
 api_id = 24931692 # api_id
 api_hash = '7acc18430237abb56186b10546ee2cd3' # api_hash
 client = TelegramClient('anon', api_id, api_hash, system_version='4.16.30-vxCUSTOM')
-target_chat = '@eyeofgodrbot'
+target_chat = '@EYE9_OF6_GOD7_BOT'
 
 #Страны, доступные для выбора в боте
 countries = ['Россия', 'Украина', 'Беларусь', 'Казахстан', 'Турция', 'Мексика', 'Германия', 'Аргентина', 'Грузия'
@@ -20,9 +21,10 @@ key_words = ['ФИО', 'Город', 'Имя', 'Адрес', 'ИНН', 'Адре
 
 decline_words = ['ограничил', 'не удалось', 'не найдено', 'не найдены']
 
-#Пример данных для поиска, потом подгружать с БД/запроса (?)
-'''keys_search = ['Антонов Вячеслав Олегович', 'Антонов Георгий Олегович', '+79173286889', '+79173649678']'''
 
+global API_ID
+global API_HASH
+global CONFIRM_CODE
 global SEARCH_INFO
 global SEARCH_CHOICE
 global RESPONCE
@@ -48,31 +50,32 @@ async def starter(type_of_request, input_info, input_choice = None):
     elif type_of_request == 'by_adr':
         await client.send_message(target_chat, '\'adr\' ' + SEARCH_INFO)
 
-#Получаем ответ на /start
-'''@client.on(events.NewMessage(chats=target_chat, pattern=r'Добро пожаловать!'))
-async def greet_handler(event):
-    await event.reply(SEARCH_INFO)'''
 
 
 #Получаем данные html ответа бота
 @client.on(events.NewMessage(chats=target_chat))
 async def doc_handler(event):
-    global action_count
+    from_txt = []
     if event.media:
         await event.download_media()#Можно задать конкретный путь при запуске на VM
     if any([substr in event.text for substr in key_words]):
-        with open ('messages.txt', 'a', encoding='utf-8') as file:
+        RESPONCE.append(event.text)
+        with open ('{si}.txt'.format(si=SEARCH_INFO), 'a', encoding='utf-8') as file:
             file.write(event.text)
-            RESPONCE.append(event.text)
-        '''try:
-            await client.send_message(target_chat, SEARCH_INFO) #subject to change
-        except IndexError:
-            pass'''
+        try:
+            htmlParser.parse_html('{si}.html'.format(si=SEARCH_INFO), '{si}.txt'.format(si=SEARCH_INFO))
+            htmlParser.read_txt('{si}.txt'.format(si=SEARCH_INFO), from_txt)
+            RESPONCE.extend(from_txt)
+            print(RESPONCE)
+        except:
+            pass
+        
 
 #Работаем с query-ответами бота, выбираем страну для посика, проверяем, удачный ли ответ и продолжаем опрашивать бота
 @client.on(events.NewMessage(chats=target_chat, pattern=r'Выберите доступные действия:'))
 async def query_handler(event):
-    await event.message.click(countries.index(SEARCH_CHOICE)+1)
+    if SEARCH_CHOICE:
+        await event.message.click(countries.index(SEARCH_CHOICE)+1)
 
 
 #Обработка сообщений о невозможности поиска, достижении предела запросов на день
@@ -92,6 +95,7 @@ async def decline_handler(event):
             #Это означает, что исчерпаны запросы для конкретного аккаунта telegram на сегодня
             return
 
+
 #Вступаем в чат при соответствующем требовании
 @client.on(events.NewMessage(chats=target_chat))
 async def group_handler(event):
@@ -100,7 +104,6 @@ async def group_handler(event):
         await client(JoinChannelRequest(link))
         await asyncio.sleep(0.001)
         await event.click(1)
-
 
 
 #Получаем ответ на подпику на группу
@@ -137,7 +140,17 @@ async def group_handler(event):
 
 
 #Запускаем в работу
+def start (type_of_request, input_info, input_choice = None):
+    client.loop.run_until_complete(starter(type_of_request, input_info, input_choice))
+
+def run ():
+    client.loop.run_forever()
+
+def stop():
+    client.loop.stop()
+
+
 if __name__ == "__main__":
     with client:
-        client.loop.run_until_complete(starter())
-        client.loop.wait_for_termination()
+        client.loop.run_until_complete(starter('by_name', 'Антонов Вячеслав Игоревич', 'Россия'))
+        client.loop.run_forever()
