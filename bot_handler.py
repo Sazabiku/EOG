@@ -30,6 +30,9 @@ global CONFIRM_CODE
 global SEARCH_INFO
 global SEARCH_CHOICE
 global BOT_RESPONCE
+global type_for_responce
+global responce_full 
+responce_full = False
 BOT_RESPONCE = []
 
 
@@ -37,8 +40,10 @@ BOT_RESPONCE = []
 async def starter(type_of_request, input_info, input_choice = 'Россия'):
     global SEARCH_INFO
     global SEARCH_CHOICE
+    global type_for_responce
     SEARCH_INFO = input_info
     SEARCH_CHOICE = input_choice
+    type_for_responce = type_of_request
     regular_requests = ['by_name', 'by_num', 'by_sm', 'by_car', 'by_email', 'by_cad']
     await client.send_message(target_chat, '/start')
     if any([substr in type_of_request for substr in regular_requests]):
@@ -69,6 +74,8 @@ async def doc_handler(event):
             BOT_RESPONCE.extend(from_txt)
             print(BOT_RESPONCE)
             htmlParser.silentremove('{si}.html'.format(si=SEARCH_INFO))
+            global responce_full
+            responce_full = True
         except:
             pass
         
@@ -83,7 +90,6 @@ async def query_handler(event):
 #Обработка сообщений о невозможности поиска, достижении предела запросов на день
 @client.on(events.NewMessage(chats=target_chat))
 async def decline_handler(event):
-    global action_count
     async for message in client.iter_messages(entity=target_chat, limit=1):
         try:
             if any([substr in message.text for substr in decline_words]):
@@ -141,8 +147,15 @@ async def group_handler(event):
             pass
 
 
-def get_responce():
-    return BOT_RESPONCE
+async def get_responce():
+    await asyncio.sleep(3)
+    if type_for_responce != 'by_name':
+        return BOT_RESPONCE
+    else:
+        while responce_full == False:
+            pass
+        if responce_full == True:
+            return BOT_RESPONCE
 
 
 #Запускаем в работу
