@@ -29,8 +29,8 @@ global API_HASH
 global CONFIRM_CODE
 global SEARCH_INFO
 global SEARCH_CHOICE
-global RESPONCE
-RESPONCE = []
+global BOT_RESPONCE
+BOT_RESPONCE = []
 
 
 #Начинаем общение с ботом
@@ -60,14 +60,14 @@ async def doc_handler(event):
     if event.media:
         await event.download_media()#Можно задать конкретный путь при запуске на VM
     if any([substr in event.text for substr in key_words]):
-        RESPONCE.append(event.text)
+        BOT_RESPONCE.append(event.text)
         with open ('{si}.txt'.format(si=SEARCH_INFO), 'a', encoding='utf-8') as file:
             file.write(event.text)
         try:
             htmlParser.parse_html('{si}.html'.format(si=SEARCH_INFO), '{si}.txt'.format(si=SEARCH_INFO))
             htmlParser.read_txt('{si}.txt'.format(si=SEARCH_INFO), from_txt)
-            RESPONCE.extend(from_txt)
-            print(RESPONCE)
+            BOT_RESPONCE.extend(from_txt)
+            print(BOT_RESPONCE)
             htmlParser.silentremove('{si}.html'.format(si=SEARCH_INFO))
         except:
             pass
@@ -87,7 +87,7 @@ async def decline_handler(event):
     async for message in client.iter_messages(entity=target_chat, limit=1):
         try:
             if any([substr in message.text for substr in decline_words]):
-                RESPONCE.append(SEARCH_INFO + ' - найти информации не удалось')
+                BOT_RESPONCE.append(SEARCH_INFO + ' - найти информации не удалось')
             elif 'Вы слишком часто выполняете это действие' in message.text:
                 await asyncio.sleep(1)
                 await client.send_message(target_chat, SEARCH_INFO)
@@ -142,7 +142,7 @@ async def group_handler(event):
 
 
 def get_responce():
-    return RESPONCE
+    return BOT_RESPONCE
 
 
 #Запускаем в работу
