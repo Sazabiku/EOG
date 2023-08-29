@@ -12,6 +12,7 @@ class EOGServicer(API_pb2_grpc.EOGServicer):
         bot_handler.start('by_name', request.input_info, request.choice)
         bot_handler.run()
         responce.text_info = bot_handler.get_responce()
+        
         bot_handler.stop()
         return responce
     
