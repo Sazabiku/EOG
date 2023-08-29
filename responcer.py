@@ -2,12 +2,14 @@ import grpc
 import API_pb2
 import API_pb2_grpc
 import bot_handler
-
-
 import time
+
+
 
 class EOGServicer(API_pb2_grpc.EOGServicer):
     def GET_BY_NAME(self, request, context):
+        responce = API_pb2.RESPONCE()
+        re
         return super().GET(request, context)
     
     
@@ -61,11 +63,5 @@ def serve():
     server.start()
     server.wait_for_termination()
     
-def get_info_from_handler():
-    pass
-
-def start_handler():
-    bot_handler.main()
-    
 if __name__ == "__main__":
-    serve();
+    serve()
