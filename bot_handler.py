@@ -63,11 +63,14 @@ async def starter(type_of_request, input_info, input_choice = 'Россия'):
 async def doc_handler(event):
     from_txt = []
     if event.media:
-        await event.download_media()#Можно задать конкретный путь при запуске на VM
+        await event.download_media()
     if any([substr in event.text for substr in key_words]):
         BOT_RESPONCE.append(event.text)
-        with open ('{si}.txt'.format(si=SEARCH_INFO), 'a', encoding='utf-8') as file:
-            file.write(event.text)
+        try:
+            with open ('{si}.txt'.format(si=SEARCH_INFO), 'a', encoding='utf-8') as file:
+                file.write(event.text)
+        except:
+            pass
         try:
             htmlParser.parse_html('{si}.html'.format(si=SEARCH_INFO), '{si}.txt'.format(si=SEARCH_INFO))
             htmlParser.read_txt('{si}.txt'.format(si=SEARCH_INFO), from_txt)
