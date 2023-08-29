@@ -25,8 +25,8 @@ def run():
             country_flag = input('Производить поиск по России? Y/N: ')
             if country_flag == 'N' or country_flag == 'n':
                 choice = input('Введите название страны по которой требуется провести поиск: ')
-            client_request = API_pb2.SearchSlice(input_info = key_search)
-            server_responce = stub.GET(client_request)
+            client_request = API_pb2.SearchInput(input_info = key_search, choice = choice)
+            server_responce = stub.GET_BY_NAME(client_request)
         elif rpc_call == 2:
             pass
         elif rpc_call == 3:

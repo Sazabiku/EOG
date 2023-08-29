@@ -141,11 +141,15 @@ async def group_handler(event):
             pass
 
 
+def get_responce():
+    return RESPONCE
+
+
 #Запускаем в работу
-def start (type_of_request, input_info, input_choice = 'Россия'):
+def start(type_of_request, input_info, input_choice = 'Россия'):
     client.loop.run_until_complete(starter(type_of_request, input_info, input_choice))
 
-def run ():
+def run():
     client.loop.run_forever()
 
 def stop():

@@ -9,16 +9,29 @@ import time
 class EOGServicer(API_pb2_grpc.EOGServicer):
     def GET_BY_NAME(self, request, context):
         responce = API_pb2.RESPONCE()
-        re
-        return super().GET(request, context)
+        bot_handler.start('by_name', request.input_info, request.choice)
+        bot_handler.run()
+        responce.text_info = bot_handler.get_responce()
+        bot_handler.stop()
+        return responce
     
     
     def GET_BY_NUM(self, request, context):
-        return super().GET(request, context)
+        responce = API_pb2.RESPONCE()
+        bot_handler.start('by_num', request.input_info)
+        bot_handler.run()
+        responce.text_info = bot_handler.get_responce()
+        bot_handler.stop()
+        return responce
     
     
     def GET_BY_CAR(self, request, context):
-        return super().GET(request, context)
+        responce = API_pb2.RESPONCE()
+        bot_handler.start('by_car', request.input_info)
+        bot_handler.run()
+        responce.text_info = bot_handler.get_responce()
+        bot_handler.stop()
+        return responce
     
     
     def GET_BY_SM(self, request, context):
