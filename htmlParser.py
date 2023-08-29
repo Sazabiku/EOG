@@ -1,4 +1,7 @@
 from bs4 import BeautifulSoup
+import os, errno
+
+
 
 class Dictlist(dict):
     def __setitem__(self, key, value):
@@ -7,6 +10,15 @@ class Dictlist(dict):
         except KeyError:
             super(Dictlist, self).__setitem__(key, [])
         self[key].append(value)
+
+
+def silentremove(filename):
+    try:
+        os.remove(filename)
+    except OSError as e:
+        if e.errno != errno.ENOENT: 
+            raise 
+
 
 def parse_html (input_file, output_file):
 
@@ -31,6 +43,7 @@ def parse_html (input_file, output_file):
                 
             for key, value in zip(tags, results): 
                 outf.write('%s %s\n' % (key, value))
+
 
 def read_txt (input_file, output_array):
     with open (input_file, 'r', encoding='utf-8') as f:

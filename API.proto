@@ -47,6 +47,4 @@ message SearchInput {
 
 message Response {
     repeated string text_info = 7;
-    repeated string parse_info = 8;
-    repeated string image_info = 9;
 }

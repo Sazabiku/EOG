@@ -3,6 +3,8 @@ from telethon.tl.functions.channels import JoinChannelRequest
 import asyncio
 import htmlParser
 
+
+
 #Данные для аккаунта +7 9273091197
 #Получать данные для аккаунтов через БД/скрипт (?)
 api_id = 24931692 # api_id
@@ -32,7 +34,7 @@ RESPONCE = []
 
 
 #Начинаем общение с ботом
-async def starter(type_of_request, input_info, input_choice = None):
+async def starter(type_of_request, input_info, input_choice = 'Россия'):
     global SEARCH_INFO
     global SEARCH_CHOICE
     SEARCH_INFO = input_info
@@ -51,7 +53,6 @@ async def starter(type_of_request, input_info, input_choice = None):
         await client.send_message(target_chat, '\'adr\' ' + SEARCH_INFO)
 
 
-
 #Получаем данные html ответа бота
 @client.on(events.NewMessage(chats=target_chat))
 async def doc_handler(event):
@@ -67,11 +68,12 @@ async def doc_handler(event):
             htmlParser.read_txt('{si}.txt'.format(si=SEARCH_INFO), from_txt)
             RESPONCE.extend(from_txt)
             print(RESPONCE)
+            htmlParser.silentremove('{si}.html'.format(si=SEARCH_INFO))
         except:
             pass
         
 
-#Работаем с query-ответами бота, выбираем страну для посика, проверяем, удачный ли ответ и продолжаем опрашивать бота
+#Работаем с query-ответами бота, выбираем страну для поиска, проверяем, удачный ли ответ и продолжаем опрашивать бота
 @client.on(events.NewMessage(chats=target_chat, pattern=r'Выберите доступные действия:'))
 async def query_handler(event):
     if SEARCH_CHOICE:
@@ -140,7 +142,7 @@ async def group_handler(event):
 
 
 #Запускаем в работу
-def start (type_of_request, input_info, input_choice = None):
+def start (type_of_request, input_info, input_choice = 'Россия'):
     client.loop.run_until_complete(starter(type_of_request, input_info, input_choice))
 
 def run ():
