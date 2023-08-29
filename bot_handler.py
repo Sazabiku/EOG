@@ -150,7 +150,10 @@ async def group_handler(event):
 async def get_responce():
     await asyncio.sleep(3)
     if type_for_responce != 'by_name':
-        return BOT_RESPONCE
+        while not BOT_RESPONCE:
+            pass
+        if BOT_RESPONCE:
+            return BOT_RESPONCE
     else:
         while responce_full == False:
             pass
