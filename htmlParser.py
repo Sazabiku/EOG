@@ -3,15 +3,6 @@ import os, errno
 
 
 
-class Dictlist(dict):
-    def __setitem__(self, key, value):
-        try:
-            self[key]
-        except KeyError:
-            super(Dictlist, self).__setitem__(key, [])
-        self[key].append(value)
-
-
 def silentremove(filename):
     try:
         os.remove(filename)
@@ -49,3 +40,4 @@ def read_txt (input_file, output_array):
     with open (input_file, 'r', encoding='utf-8') as f:
         txt_data = f.read()
         output_array = txt_data.split('\n')
+    return output_array
