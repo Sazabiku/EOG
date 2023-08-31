@@ -78,7 +78,7 @@ async def doc_handler(event):
             pass
         try:
             htmlParser.parse_html('{si}.html'.format(si=SEARCH_INFO), '{si}.txt'.format(si=SEARCH_INFO))
-            htmlParser.read_txt('{si}.txt'.format(si=SEARCH_INFO), from_txt)
+            from_txt = htmlParser.read_txt('{si}.txt'.format(si=SEARCH_INFO))
             BOT_RESPONCE.extend(from_txt)
             print(BOT_RESPONCE)
             htmlParser.silentremove('{si}.html'.format(si=SEARCH_INFO))
