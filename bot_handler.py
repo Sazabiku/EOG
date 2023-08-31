@@ -2,6 +2,7 @@ from telethon import TelegramClient, events
 from telethon.tl.functions.channels import JoinChannelRequest
 import asyncio
 import htmlParser
+from aiorun import run
 
 
 global CONFIRM_CODE
@@ -24,8 +25,8 @@ def set_login(id = '24931692', hash = '7acc18430237abb56186b10546ee2cd3'):
 #Данные для аккаунта +7 9273091197
 api_id = 24931692 # api_id
 api_hash = '7acc18430237abb56186b10546ee2cd3' # api_hash
-client = TelegramClient('anon', CLIENT_STRUCT.api_id, CLIENT_STRUCT.api_hash, system_version='4.16.30-vxCUSTOM')
-target_chat = '@EYE9_OF6_GOD7_BOT'
+client = TelegramClient('anon', api_id, api_hash, system_version='4.16.30-vxCUSTOM')
+target_chat = 'https://t.me/oo19xips17042ds_bot'
 
 #Страны, доступные для выбора в боте
 countries = ['Россия', 'Украина', 'Беларусь', 'Казахстан', 'Турция', 'Мексика', 'Германия', 'Аргентина', 'Грузия'
@@ -170,17 +171,42 @@ async def get_responce():
 
 #Запускаем в работу
 def start(type_of_request, input_info, input_choice = 'Россия'):
-    client.loop.run_until_complete(starter(type_of_request, input_info, input_choice))
+    with client:
+        client.loop.run_until_complete(starter(type_of_request, input_info, input_choice))
 
 def run():
-    client.loop.run_forever()
+    with client:
+        try:
+            client.loop.run_forever()
+        finally:
+            client.loop.run_until_complete(shutdown())
 
-def stop():
-    client.loop.stop()
+
+def shutdown():
+    print("Shutdown of DummyProtocol initialized ...")
+
+    with client:
+        client.loop.stop()
+
+        # For python version < 3.7 use asyncio.Task.all_tasks()
+        # For python version >= 3.7 use asyncio.all_tasks()
+        pending = asyncio.all_tasks()
+
+        # Run loop until tasks done:
+        client.loop.run_until_complete(asyncio.gather(*pending))
+
+        print("Shutdown complete ...") 
 
 
 if __name__ == "__main__":
     set_login()
-    with client:
+
+    start('by_name', 'Антонов Вячеслав Игоревич', 'Россия')
+
+    run()
+
+    shutdown()
+
+    '''with client:
         client.loop.run_until_complete(starter('by_name', 'Антонов Вячеслав Игоревич', 'Россия'))
-        client.loop.run_forever()
+        client.loop.run_forever()'''
