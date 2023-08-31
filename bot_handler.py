@@ -4,12 +4,27 @@ import asyncio
 import htmlParser
 
 
+global CONFIRM_CODE
+global responce_full 
+responce_full = False
+BOT_RESPONCE = []
+
+
+class Telebot:
+    def __init__(self, id, hash):
+        self.api_id = id
+        self.api_hash = hash
+
+
+
+def set_login(id = '24931692', hash = '7acc18430237abb56186b10546ee2cd3'):
+    global CLIENT_STRUCT
+    CLIENT_STRUCT = Telebot(id, hash)
 
 #Данные для аккаунта +7 9273091197
-#Получать данные для аккаунтов через БД/скрипт (?)
 api_id = 24931692 # api_id
 api_hash = '7acc18430237abb56186b10546ee2cd3' # api_hash
-client = TelegramClient('anon', api_id, api_hash, system_version='4.16.30-vxCUSTOM')
+client = TelegramClient('anon', CLIENT_STRUCT.api_id, CLIENT_STRUCT.api_hash, system_version='4.16.30-vxCUSTOM')
 target_chat = '@EYE9_OF6_GOD7_BOT'
 
 #Страны, доступные для выбора в боте
@@ -23,17 +38,6 @@ key_words = ['ФИО', 'Город', 'Имя', 'Адрес', 'ИНН', 'Адре
 
 decline_words = ['ограничил', 'не удалось', 'не найдено', 'не найдены']
 
-
-global API_ID
-global API_HASH
-global CONFIRM_CODE
-global SEARCH_INFO
-global SEARCH_CHOICE
-global BOT_RESPONCE
-global type_for_responce
-global responce_full 
-responce_full = False
-BOT_RESPONCE = []
 
 
 #Начинаем общение с ботом
@@ -176,6 +180,7 @@ def stop():
 
 
 if __name__ == "__main__":
+    set_login()
     with client:
         client.loop.run_until_complete(starter('by_name', 'Антонов Вячеслав Игоревич', 'Россия'))
         client.loop.run_forever()

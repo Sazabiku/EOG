@@ -27,24 +27,52 @@ def run():
                 choice = input('Введите название страны по которой требуется провести поиск: ')
             client_request = API_pb2.SearchInput(input_info = key_search, choice = choice)
             server_responce = stub.GET_BY_NAME(client_request)
+            print(server_responce)
         elif rpc_call == 2:
-            pass
+            key_search = input('Введите номер телефона: ')
+            client_request = API_pb2.SearchInput(input_info = key_search)
+            server_responce = stub.GET_BY_NUM(client_request)
+            print(server_responce)
         elif rpc_call == 3:
-            pass
+            key_search = input('Введите тэг в социальной сети или ссылку на аккаунт: ')
+            client_request = API_pb2.SearchInput(input_info = key_search)
+            server_responce = stub.GET_BY_SM(client_request)
+            print(server_responce)
         elif rpc_call == 4:
-            pass
+            key_search = input('Введите E-mail: ')
+            client_request = API_pb2.SearchInput(input_info = key_search)
+            server_responce = stub.GET_BY_EMAIL(client_request)
+            print(server_responce)
         elif rpc_call == 5:
-            pass
+            key_search = input('Введите VIN/регистрационный номер авто: ')
+            client_request = API_pb2.SearchInput(input_info = key_search)
+            server_responce = stub.GET_BY_CAR(client_request)
+            print(server_responce)
         elif rpc_call == 6:
-            pass
+            key_search = input('Введите кадастровый номер: ')
+            client_request = API_pb2.SearchInput(input_info = key_search)
+            server_responce = stub.GET_BY_CAD(client_request)
+            print(server_responce)
         elif rpc_call == 7:
-            pass
+            key_search = input('Введите ИНН: ')
+            client_request = API_pb2.SearchInput(input_info = key_search)
+            server_responce = stub.GET_BY_INN(client_request)
+            print(server_responce)
         elif rpc_call == 8:
-            pass
+            key_search = input('Введите СНИЛС: ')
+            client_request = API_pb2.SearchInput(input_info = key_search)
+            server_responce = stub.GET_BY_SNILS(client_request)
+            print(server_responce)
         elif rpc_call == 9:
-            pass
+            key_search = input('Введите наименование юридического лица: ')
+            client_request = API_pb2.SearchInput(input_info = key_search)
+            server_responce = stub.GET_BY_CPNY(client_request)
+            print(server_responce)
         elif rpc_call == 10:
-            pass
+            key_search = input('Введите адрес: ')
+            client_request = API_pb2.SearchInput(input_info = key_search)
+            server_responce = stub.GET_BY_ADR(client_request)
+            print(server_responce)
                 
 if __name__ == "__main__":
     run()
